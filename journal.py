@@ -12,7 +12,6 @@ def get_github_activity ():
     url = f"https://api.github.com/users/{GITHUB_USERNAME}/events"
     response = requests.get(url, headers={"User-Agent": GITHUB_USERNAME})
 
-
     # display error message if status code is not 200
     if response.status_code != 200:   
         print (f"Error retrieving data, status code: {response.status_code}")
@@ -41,9 +40,10 @@ def get_github_activity ():
 
 
 def display_activity(activity):
-    width_outer = 40
-    width_inner = 30
+    width_outer = 80
+    width_inner = 70
     total_commits = 0
+    max_bar = 15
 
     bar_char = "█"
     empty_char = "░"
@@ -60,11 +60,28 @@ def display_activity(activity):
     print(divider * width_inner)
 
     for date, data in activity.items():
+        data["commits"] = 0
+        for repo in data["repos"]:
+            commits_url = f"https://api.github.com/repos/{repo}/commits"
+            params = {
+                "since": f"{date}T00:00:00Z",
+                "until": f"{date}T23:59:59Z"
+            }
+
+            commits_response = requests.get(
+                commits_url,
+                headers={"User-Agent" : GITHUB_USERNAME},
+                params=params
+            )
+
+            if commits_response.status_code == 200:
+                activity[date]["commits"] += len(commits_response.json())
+
         total_commits += data["commits"]
         commits = data["commits"]
-        bar = bar_char * commits if commits > 0 else empty_char * 4
+        bar = bar_char * min(commits, max_bar) if commits > 0 else empty_char * 4
         repos = ", ".join(r.split("/")[1] for r in data["repos"]) if data["repos"] else "no repos"
-        print(f"{date} {bar} {commits} commits ({repos})")
+        print(f"{date:<12} {bar:<15} {commits:>3} commits ({repos})")
       
             
 
