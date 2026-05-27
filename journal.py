@@ -1,5 +1,5 @@
 import requests
-import os
+from pathlib import Path
 from datetime import datetime, timedelta
 from config import GITHUB_USERNAME, OBSIDIAN_PATH
 
@@ -93,21 +93,18 @@ def display_activity(activity):
 def get_journal_input():
 
     width = 80
-
-
     user_work = input("What did you work on today? >")
     user_learn = input("What did you learn today? >")
     user_tomorrow = input("What's next for tomorrow? >")
     user_blockers = input("Any blockers? >") or "None"
 
     answers = {
-        "worked_on" : user_work,
-        "learnt" : user_learn,
+        "worked_on" : user_work, 
+        "learned" : user_learn,
         "tomorrow" : user_tomorrow,
         "blockers" :user_blockers 
         }
     
-
     print("=" * width)
     print("EVENING DEBRIEF".center(width))
     print("=" * width)
@@ -116,6 +113,52 @@ def get_journal_input():
     return answers
 
 
+def save_journal(activity, journal_input):
+    
+    today_date = datetime.now().date()
+    today = today_date.strftime("%Y-%m-%d")
+    yesterday = (today_date - timedelta(days=1)).strftime("%Y-%m-%d")
+    file_name = f"{today}.md"
+    file_path = Path(OBSIDIAN_PATH) / file_name
+    total_commits = sum(data["commits"] for data in activity.values())
+    table_rows = ""
+
+    # build rows without those days with no repos
+    for date, data in activity.items():
+        if data["repos"]:
+            repos_str = ", ".join(r.split("/")[1] for r in data["repos"]) if data["repos"] else "no repos"
+            table_rows += f"| {date} | {data["commits"]} | {repos_str} |\n"
+
+    content = f""" 
+    # Dev Log - {today}
+
+    ## GitHub Activity
+    | Date | Commits | Repos |
+    |------|---------|-------|
+    {table_rows}
+
+    ** Total this week: {total_commits} commits**
+
+    ## Evening Debrief
+
+    **worked on:** {journal_input["worked_on"]}
+
+    **Learned:** {journal_input["learned"]}
+
+    **Tomorrow:** {journal_input["tomorrow"]}
+
+    **Blockers:** {journal_input["blockers"]} 
+    """
+
+    # Write content into Obsidian
+    with open(file_path, "w" , encoding="utf-8") as f:
+        f.write(content)
+
+    print(f"Journal saved to {file_path}")
+
+
+
 activity = get_github_activity()
 display_activity(activity)
-get_journal_input()
+journal_input = get_journal_input()
+save_journal(activity, journal_input)
