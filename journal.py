@@ -130,25 +130,23 @@ def save_journal(activity, journal_input):
             table_rows += f"| {date} | {data["commits"]} | {repos_str} |\n"
 
     content = f""" 
-    # Dev Log - {today}
+## GitHub Activity
+| Date | Commits | Repos |
+|------|---------|-------|
+{table_rows}
 
-    ## GitHub Activity
-    | Date | Commits | Repos |
-    |------|---------|-------|
-    {table_rows}
+**Total this week: {total_commits} commits**
 
-    ** Total this week: {total_commits} commits**
+## Daily log
 
-    ## Evening Debrief
+**worked on:** {journal_input["worked_on"]}
 
-    **worked on:** {journal_input["worked_on"]}
+**Learned:** {journal_input["learned"]}
 
-    **Learned:** {journal_input["learned"]}
+**Tomorrow:** {journal_input["tomorrow"]}
 
-    **Tomorrow:** {journal_input["tomorrow"]}
-
-    **Blockers:** {journal_input["blockers"]} 
-    """
+**Blockers:** {journal_input["blockers"]} 
+"""
 
     # Write content into Obsidian
     with open(file_path, "w" , encoding="utf-8") as f:
