@@ -1,8 +1,7 @@
 import requests
-import json
+import os
 from datetime import datetime, timedelta
 from config import GITHUB_USERNAME, OBSIDIAN_PATH
-
 
 
 def get_github_activity ():
@@ -40,6 +39,7 @@ def get_github_activity ():
 
 
 def display_activity(activity):
+    
     width_outer = 80
     width_inner = 70
     total_commits = 0
@@ -89,5 +89,33 @@ def display_activity(activity):
     print("=" * width_outer)
 
 
+
+def get_journal_input():
+
+    width = 80
+
+
+    user_work = input("What did you work on today? >")
+    user_learn = input("What did you learn today? >")
+    user_tomorrow = input("What's next for tomorrow? >")
+    user_blockers = input("Any blockers? >") or "None"
+
+    answers = {
+        "worked_on" : user_work,
+        "learnt" : user_learn,
+        "tomorrow" : user_tomorrow,
+        "blockers" :user_blockers 
+        }
+    
+
+    print("=" * width)
+    print("EVENING DEBRIEF".center(width))
+    print("=" * width)
+    print("TODAYS LOG:")
+     
+    return answers
+
+
 activity = get_github_activity()
 display_activity(activity)
+get_journal_input()
