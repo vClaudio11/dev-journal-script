@@ -26,14 +26,40 @@ params, dictionaries, opening/closing and writing into files
 
 ## Getting Started
 
-No installation needed. To run locally:
+### Prerequisites
+- Python 3.x — download at [python.org](https://python.org)
+- An [Obsidian](https://obsidian.md) vault (or any local folder to save logs)
+- The `requests` library — install with:
 
-1. Clone the repository
+```bash
+pip install requests
+```
+
+### Setup
+
+1. Clone the repository:
 ```bash
 git clone https://github.com/vclaudio11/dev-journal-script.git
+cd dev-journal-script
 ```
-2. Open `index.html` in your browser
 
+2. Create a `config.py` file in the root folder using `config.example.py` as a template:
+```python
+GITHUB_USERNAME = "your-github-username"
+OBSIDIAN_PATH = "path/to/your/obsidian/vault/Dev Logs"
+```
+
+3. Create a `Dev Logs` folder inside your Obsidian vault — this is where daily logs will save
+
+4. Run the script each evening:
+```bash
+python journal.py
+```
+
+## Note
+
+`config.py` is gitignored — it contains your personal file paths and is never committed.
+A `config.example.py` is included showing the required structure.
 ## Roadmap
 
 - [ ] make a dedicated frontend input system
