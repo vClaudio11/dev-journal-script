@@ -64,7 +64,8 @@ A `config.example.py` is included showing the required structure.
 
 - [ ] make a dedicated frontend input system
 - [ ] change display format layout
-- [ ] customize display based on Obsidian markup 
+- [ ] customize display based on Obsidian markup
+- [ ] get more GitHub profile data and display it
 
 ## License
 
