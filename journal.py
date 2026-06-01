@@ -139,7 +139,7 @@ def save_journal(activity, journal_input):
 
 ## Daily log
 
-**worked on:** {journal_input["worked_on"]}
+**Worked on:** {journal_input["worked_on"]}
 
 **Learned:** {journal_input["learned"]}
 

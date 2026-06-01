@@ -64,7 +64,8 @@ A `config.example.py` is included showing the required structure.
 
 - [ ] make a dedicated frontend input system
 - [ ] change display format layout
-- [ ] customize display based on Obsidian markup 
+- [ ] customize display based on Obsidian markup
+- [ ] Allow user to choose type of journal layout
 
 ## License
 
