@@ -65,11 +65,8 @@ A `config.example.py` is included showing the required structure.
 - [ ] make a dedicated frontend input system
 - [ ] change display format layout
 - [ ] customize display based on Obsidian markup
-<<<<<<< HEAD
 - [ ] Allow user to choose type of journal layout
-=======
 - [ ] get more GitHub profile data and display it
->>>>>>> 674a12945f01062670d348f8cda0ddd85ba7e5da
 
 ## License
 
