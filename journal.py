@@ -93,12 +93,14 @@ def display_activity(activity):
 def get_journal_input():
 
     width = 80
+    user_feeling = input("What did you feel today?")
     user_work = input("What did you work on today? >")
     user_learn = input("What did you learn today? >")
     user_tomorrow = input("What's next for tomorrow? >")
     user_blockers = input("Any blockers? >") or "None"
 
     answers = {
+        "feeling" : user_feeling,
         "worked_on" : user_work, 
         "learned" : user_learn,
         "tomorrow" : user_tomorrow,
@@ -138,6 +140,8 @@ def save_journal(activity, journal_input):
 **Total this week: {total_commits} commits**
 
 ## Daily log
+
+**Felt:** {journal_input["feeling"]}
 
 **Worked on:** {journal_input["worked_on"]}
 
