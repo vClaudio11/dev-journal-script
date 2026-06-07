@@ -66,6 +66,7 @@ A `config.example.py` is included showing the required structure.
 - [ ] change display format layout
 - [ ] customize display based on Obsidian markup
 - [ ] Allow user to choose type of journal layout
+- [ ] get more GitHub profile data and display it
 
 
 ## License
